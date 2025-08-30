@@ -61,12 +61,25 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				'blue-carbon': 'hsl(var(--blue-carbon))',
+				'blue-carbon-light': 'hsl(var(--blue-carbon-light))',
+				'ocean-blue': 'hsl(var(--ocean-blue))',
+				'ocean-deep': 'hsl(var(--ocean-deep))',
+				'mangrove-green': 'hsl(var(--mangrove-green))',
+				'carbon-dark': 'hsl(var(--carbon-dark))',
+				'success-green': 'hsl(var(--success-green))',
+				'warning-amber': 'hsl(var(--warning-amber))'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)'
+			},
+			backgroundImage: {
+				'gradient-ocean': 'var(--gradient-ocean)',
+				'gradient-mangrove': 'var(--gradient-mangrove)',
+				'gradient-carbon': 'var(--gradient-carbon)'
 			},
 			keyframes: {
 				'accordion-down': {

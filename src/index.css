@@ -10,6 +10,21 @@ All colors MUST be HSL.
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
+    
+    /* Blue Carbon Theme Colors */
+    --blue-carbon: 198 100% 34%;
+    --blue-carbon-light: 198 100% 85%;
+    --ocean-blue: 220 95% 55%;
+    --ocean-deep: 220 95% 25%;
+    --mangrove-green: 140 60% 35%;
+    --carbon-dark: 220 15% 20%;
+    --success-green: 120 60% 45%;
+    --warning-amber: 45 100% 55%;
+    
+    /* Gradients */
+    --gradient-ocean: linear-gradient(135deg, hsl(var(--ocean-blue)), hsl(var(--blue-carbon)));
+    --gradient-mangrove: linear-gradient(135deg, hsl(var(--mangrove-green)), hsl(var(--blue-carbon)));
+    --gradient-carbon: linear-gradient(135deg, hsl(var(--carbon-dark)), hsl(var(--ocean-deep)));
 
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
