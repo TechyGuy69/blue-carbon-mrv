@@ -14,7 +14,296 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      ai_predictions: {
+        Row: {
+          created_at: string
+          id: string
+          model_version: string
+          prediction_data: Json
+          prediction_type: string
+          project_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          model_version: string
+          prediction_data: Json
+          prediction_type: string
+          project_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          model_version?: string
+          prediction_data?: Json
+          prediction_type?: string
+          project_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ai_predictions_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      carbon_credits: {
+        Row: {
+          blockchain_transaction_hash: string | null
+          created_at: string
+          credit_amount: number
+          current_owner_id: string
+          id: string
+          issue_date: string
+          project_id: string
+          retired_date: string | null
+          retirement_reason: string | null
+          serial_number: string
+          status: Database["public"]["Enums"]["credit_status"]
+          vintage_year: number
+        }
+        Insert: {
+          blockchain_transaction_hash?: string | null
+          created_at?: string
+          credit_amount: number
+          current_owner_id: string
+          id?: string
+          issue_date: string
+          project_id: string
+          retired_date?: string | null
+          retirement_reason?: string | null
+          serial_number: string
+          status?: Database["public"]["Enums"]["credit_status"]
+          vintage_year: number
+        }
+        Update: {
+          blockchain_transaction_hash?: string | null
+          created_at?: string
+          credit_amount?: number
+          current_owner_id?: string
+          id?: string
+          issue_date?: string
+          project_id?: string
+          retired_date?: string | null
+          retirement_reason?: string | null
+          serial_number?: string
+          status?: Database["public"]["Enums"]["credit_status"]
+          vintage_year?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "carbon_credits_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      credit_transactions: {
+        Row: {
+          amount: number
+          blockchain_hash: string
+          credit_id: string
+          from_user_id: string | null
+          id: string
+          notes: string | null
+          price_per_credit: number | null
+          to_user_id: string | null
+          transaction_date: string
+          transaction_type: string
+        }
+        Insert: {
+          amount: number
+          blockchain_hash: string
+          credit_id: string
+          from_user_id?: string | null
+          id?: string
+          notes?: string | null
+          price_per_credit?: number | null
+          to_user_id?: string | null
+          transaction_date?: string
+          transaction_type: string
+        }
+        Update: {
+          amount?: number
+          blockchain_hash?: string
+          credit_id?: string
+          from_user_id?: string | null
+          id?: string
+          notes?: string | null
+          price_per_credit?: number | null
+          to_user_id?: string | null
+          transaction_date?: string
+          transaction_type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "credit_transactions_credit_id_fkey"
+            columns: ["credit_id"]
+            isOneToOne: false
+            referencedRelation: "carbon_credits"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      mrv_submissions: {
+        Row: {
+          biomass_data: Json | null
+          blockchain_hash: string | null
+          carbon_measurement: number | null
+          created_at: string
+          data_source: string
+          data_summary: Json | null
+          file_path: string | null
+          id: string
+          notes: string | null
+          project_id: string
+          submission_date: string
+          verification_status: Database["public"]["Enums"]["verification_status"]
+          verified_at: string | null
+          verified_by: string | null
+        }
+        Insert: {
+          biomass_data?: Json | null
+          blockchain_hash?: string | null
+          carbon_measurement?: number | null
+          created_at?: string
+          data_source: string
+          data_summary?: Json | null
+          file_path?: string | null
+          id?: string
+          notes?: string | null
+          project_id: string
+          submission_date: string
+          verification_status?: Database["public"]["Enums"]["verification_status"]
+          verified_at?: string | null
+          verified_by?: string | null
+        }
+        Update: {
+          biomass_data?: Json | null
+          blockchain_hash?: string | null
+          carbon_measurement?: number | null
+          created_at?: string
+          data_source?: string
+          data_summary?: Json | null
+          file_path?: string | null
+          id?: string
+          notes?: string | null
+          project_id?: string
+          submission_date?: string
+          verification_status?: Database["public"]["Enums"]["verification_status"]
+          verified_at?: string | null
+          verified_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mrv_submissions_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          contact_email: string | null
+          created_at: string
+          full_name: string
+          id: string
+          organization: string | null
+          phone: string | null
+          role: Database["public"]["Enums"]["user_role"]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          contact_email?: string | null
+          created_at?: string
+          full_name: string
+          id?: string
+          organization?: string | null
+          phone?: string | null
+          role?: Database["public"]["Enums"]["user_role"]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          contact_email?: string | null
+          created_at?: string
+          full_name?: string
+          id?: string
+          organization?: string | null
+          phone?: string | null
+          role?: Database["public"]["Enums"]["user_role"]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      projects: {
+        Row: {
+          approved_at: string | null
+          approved_by: string | null
+          area_hectares: number
+          baseline_carbon: number | null
+          blockchain_hash: string | null
+          created_at: string
+          description: string | null
+          end_date: string | null
+          id: string
+          location: Json
+          name: string
+          owner_id: string
+          project_type: string
+          projected_sequestration: number | null
+          start_date: string | null
+          status: Database["public"]["Enums"]["project_status"]
+          updated_at: string
+        }
+        Insert: {
+          approved_at?: string | null
+          approved_by?: string | null
+          area_hectares: number
+          baseline_carbon?: number | null
+          blockchain_hash?: string | null
+          created_at?: string
+          description?: string | null
+          end_date?: string | null
+          id?: string
+          location: Json
+          name: string
+          owner_id: string
+          project_type: string
+          projected_sequestration?: number | null
+          start_date?: string | null
+          status?: Database["public"]["Enums"]["project_status"]
+          updated_at?: string
+        }
+        Update: {
+          approved_at?: string | null
+          approved_by?: string | null
+          area_hectares?: number
+          baseline_carbon?: number | null
+          blockchain_hash?: string | null
+          created_at?: string
+          description?: string | null
+          end_date?: string | null
+          id?: string
+          location?: Json
+          name?: string
+          owner_id?: string
+          project_type?: string
+          projected_sequestration?: number | null
+          start_date?: string | null
+          status?: Database["public"]["Enums"]["project_status"]
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +312,17 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      credit_status: "issued" | "transferred" | "retired"
+      project_status:
+        | "draft"
+        | "submitted"
+        | "under_review"
+        | "approved"
+        | "rejected"
+        | "active"
+        | "completed"
+      user_role: "admin" | "ngo" | "community" | "public"
+      verification_status: "pending" | "verified" | "rejected"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +449,19 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      credit_status: ["issued", "transferred", "retired"],
+      project_status: [
+        "draft",
+        "submitted",
+        "under_review",
+        "approved",
+        "rejected",
+        "active",
+        "completed",
+      ],
+      user_role: ["admin", "ngo", "community", "public"],
+      verification_status: ["pending", "verified", "rejected"],
+    },
   },
 } as const
