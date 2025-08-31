@@ -39,27 +39,62 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   const signIn = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-    return { error };
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (error) {
+        // Handle specific error cases
+        if (error.message.includes('Invalid login credentials')) {
+          return { error: { message: 'Invalid email or password. Please check your credentials.' } };
+        }
+        if (error.message.includes('email not confirmed')) {
+          return { error: { message: 'Please check your email and confirm your account before signing in.' } };
+        }
+        return { error };
+      }
+
+      return { error: null, data };
+    } catch (err) {
+      return { error: { message: 'An unexpected error occurred. Please try again.' } };
+    }
   };
 
   const signUp = async (email: string, password: string, fullName: string) => {
     const redirectUrl = `${window.location.origin}/`;
     
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: redirectUrl,
-        data: {
-          full_name: fullName,
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo: redirectUrl,
+          data: {
+            full_name: fullName,
+          },
         },
-      },
-    });
-    return { error };
+      });
+
+      if (error) {
+        // Handle specific error cases
+        if (error.message.includes('already registered')) {
+          return { error: { message: 'This email is already registered. Please sign in instead.' } };
+        }
+        if (error.message.includes('invalid email')) {
+          return { error: { message: 'Please enter a valid email address.' } };
+        }
+        if (error.message.includes('password')) {
+          return { error: { message: 'Password must be at least 6 characters long.' } };
+        }
+        return { error };
+      }
+
+      return { error: null, data };
+    } catch (err) {
+      return { error: { message: 'An unexpected error occurred. Please try again.' } };
+    }
   };
 
   const signOut = async () => {

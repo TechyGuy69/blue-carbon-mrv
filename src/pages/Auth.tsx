@@ -36,7 +36,8 @@ const Auth = () => {
         title: "Welcome back!",
         description: "You have successfully signed in.",
       });
-      navigate("/");
+      // Force page reload to ensure clean state
+      window.location.href = '/';
     }
     
     setIsLoading(false);
@@ -62,8 +63,11 @@ const Auth = () => {
     } else {
       toast({
         title: "Account created!",
-        description: "Please check your email to verify your account.",
+        description: "Please check your email to verify your account. You can now sign in.",
       });
+      // Switch to sign in tab after successful signup
+      const signinTab = document.querySelector('[value="signin"]') as HTMLElement;
+      if (signinTab) signinTab.click();
     }
     
     setIsLoading(false);
